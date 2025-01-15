@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name:  transactions-service
+  labels:
+    app:  transactions-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app:  transactions-service
+  template:
+    metadata:
+      labels:
+        app:  transactions-service
+    spec:
+      containers:
+      - name:  transactions-service
+        image: "ayman909/transactions-service:v2"  # Replace with your actual gateway image
+        ports:
+        - containerPort: 8080  # Port exposed by your gateway container
+      initContainers:
+      - name: init-eureka
+        image: busybox
+        command: ['sh', '-c', 'until nslookup eureka-server.default.svc.cluster.local; do echo waiting for Eureka; sleep 2; done;']
+      - name: init-db
+        image: busybox
+        command: ['sh', '-c', 'until nslookup transactions-db.default.svc.cluster.local; do echo waiting for Eureka; sleep 2; done;']

@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: client-service
+  labels:
+    app: client-service
+spec:
+  type: ClusterIP
+  selector:
+    app: client-service
+  ports:
+    - protocol: TCP
+      port: 9000           # The port inside the cluster that the gateway listens on
+      targetPort: 8080      # The target port on the container (same as containerPort)
+      

@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: eureka-server
+  labels:
+    app: eureka-server
+spec:
+  type: NodePort
+  selector:
+    app: eureka-server
+  ports:
+    - protocol: TCP
+      port: 8761          # The port inside the cluster that Eureka listens on
+      targetPort: 8761     # Target port on the container
+      nodePort: 31000      # The external port on the nodes

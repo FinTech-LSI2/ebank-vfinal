@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: client-service
+  labels:
+    app: client-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: client-service
+  template:
+    metadata:
+      labels:
+        app: client-service
+    spec:
+      containers:
+      - name: client-service
+        image: "ayman909/client-service:v2"  # Replace with your actual gateway image
+        ports:
+        - containerPort: 8080  # Port exposed by your gateway container
+      initContainers:
+      - name: init-eureka
+        image: busybox
+        command: ['sh', '-c', 'until nslookup eureka-server.default.svc.cluster.local; do echo waiting for Eureka; sleep 2; done;']
+      - name: init-db
+        image: busybox
+        command: ['sh', '-c', 'until nslookup client-db.default.svc.cluster.local; do echo waiting for Eureka; sleep 2; done;']

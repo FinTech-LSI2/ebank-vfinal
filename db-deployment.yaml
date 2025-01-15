@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: client-db
+  name: client-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: client-db
+  template:
+    metadata:
+      labels:
+        app: client-db
+    spec:
+      containers:
+      - image: mysql:8.0.33
+        name: mysql
+        env:
+        - name: MYSQL_USER
+          value: client-user
+        - name: MYSQL_PASSWORD
+          value: client-pass
+        - name :  MYSQL_DATABASE
+          value : client-service
+        - name: MYSQL_ROOT_PASSWORD
+          value: root-password
+        ports:
+        - containerPort: 3306
+          name: client-db
+        volumeMounts:
+        - mountPath: /var/lib/mysql 
+          name: db-data
+      volumes:
+      - name: db-data
+        emptyDir: {} 

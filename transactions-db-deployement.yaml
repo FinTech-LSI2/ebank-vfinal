@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: transactions-db
+  name: transactions-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: transactions-db
+  template:
+    metadata:
+      labels:
+        app: transactions-db
+    spec:
+      containers:
+      - image: mysql:8.0.33
+        name: mysql
+        env:
+        - name: MYSQL_USER
+          value: transactions-user
+        - name: MYSQL_PASSWORD
+          value: transactions-pass
+        - name : MYSQL_DATABASE
+          value : transactions-service
+        - name: MYSQL_ROOT_PASSWORD
+          value: root-password
+        ports:
+        - containerPort: 3306
+          name: transactions-db
+        volumeMounts:
+        - mountPath: /var/lib/mysql 
+          name: db-data
+      volumes:
+      - name: db-data
+        emptyDir: {} 

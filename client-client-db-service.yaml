@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: client-db
+  name: client-db
+spec:
+  type: ClusterIP
+  ports:
+  - name: "db-service"
+    port: 3306
+    targetPort: 3306
+  selector:
+    app: client-db
+  
