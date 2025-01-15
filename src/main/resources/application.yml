@@ -1,0 +1,14 @@
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    service-url:
+      defaultZone: http://eureka-server:8761/eureka
+    register-with-eureka: true
+    fetch-registry: true
+spring:
+  application:
+    name: finance-service
+  config:
+    import: optional:configserver:http://config-server:8888
+
