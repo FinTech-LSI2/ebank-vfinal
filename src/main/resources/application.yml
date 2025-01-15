@@ -1,0 +1,20 @@
+spring:
+  cloud:
+    config:
+      enabled: false
+  application:
+    name: transaction-service
+  datasource:
+    url: jdbc:mysql://transactions-db:3306/transactions-service
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+  sql:
+    init:
+      mode: always
