@@ -1,0 +1,6 @@
+<div class="contact-container">
+  <button class="contact-card" *ngFor="let card of contactCards">
+    <i [ngClass]="card.iconClass"></i>
+    <p>{{ card.label }}</p>
+  </button>
+</div>

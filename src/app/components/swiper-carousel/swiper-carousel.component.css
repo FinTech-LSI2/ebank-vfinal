@@ -1,0 +1,199 @@
+/* Carousel Container */
+.carousel-container {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.carousel {
+  display: flex;
+  animation: slide 50s infinite;
+}
+
+.carousel-item {
+  min-width: 100%;
+  flex: 0 0 auto;
+  transition: transform 30s ease-in-out;
+}
+
+@keyframes slide {
+  0% {
+    transform: translateX(0);
+  }
+  33% {
+    transform: translateX(-100%);
+  }
+  66% {
+    transform: translateX(-200%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+/* Base Styles */
+.card-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 3rem 2rem;
+  background-color: #dde6f4;
+  border: 1px solid #ddd;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 100%; /* Start with a smaller width for flexibility */
+  max-width: 1200px;
+  margin: 1rem auto; /* Center the card */
+  transition: all 0.3s ease-in-out;
+  box-sizing: border-box;
+}
+
+.card-content {
+  display: flex;
+  gap: 1rem;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  padding-left: 2rem;
+}
+
+/* Text Section */
+.text-section {
+  flex: 1;
+  text-align: left;
+}
+
+.text-section h1 {
+  color: #131e4d;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  font-weight: bold;
+}
+
+.text-section h2 {
+  color: #444;
+  font-size: 1.5rem;
+  margin-bottom: 0.8rem;
+}
+
+.text-section p {
+  color: #666;
+  font-size: 1rem;
+  margin-bottom: 3rem;
+}
+
+/* Features List */
+.features-list {
+  display: flex;
+  justify-content: space-around; /* Distribute space evenly */
+  align-items: center;
+  flex-wrap: nowrap; /* Prevent wrapping */
+  gap: 1rem; /* Space between items */
+  padding: 0;
+  margin: 0;
+  overflow-x: auto; /* Allow horizontal scrolling if necessary */
+}
+
+/* Feature Item */
+.feature-item {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem; /* Spacing between icon and text */
+  flex-shrink: 0; /* Prevent shrinking */
+}
+
+
+.feature-icon {
+  width: 50px; /* Smaller icon size */
+  height: 50px;
+  object-fit: contain;
+
+}
+
+/* Image Section */
+.image-section {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.image-section img {
+  width: 100%;
+  height: auto;
+  max-width: 350px; /* Constrain the maximum size */
+  border-radius: 0px;
+  object-fit: cover;
+}
+
+/* Responsive Design */
+
+/* Medium Screens */
+@media (max-width: 768px) {
+  .card-container {
+    width: 95%; /* Make it occupy more space */
+    padding: 1rem; /* Reduce padding */
+  }
+
+  .card-content {
+    flex-direction: column; /* Stack content */
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .text-section h1 {
+    font-size: 1.5rem;
+  }
+
+  .text-section h2 {
+    font-size: 1rem;
+  }
+
+  .text-section p {
+    font-size: 0.9rem;
+  }
+
+  .features-list {
+    flex-direction:row; /* Stack features */
+    gap: 1rem;
+  }
+
+  .feature-item {
+    width: 100%; /* Take full width */
+  }
+}
+
+/* Small Screens */
+@media (max-width: 768px) {
+  .card-content {
+    flex-direction: column; /* Stack items vertically */
+  }
+
+  .image-section {
+    order: 1; /* Move the image to the top */
+  }
+
+  .text-section {
+    order: 2; /* Move text below the image */
+    text-align: center; /* Center-align text */
+  }
+}
+
+/* Extra Small Screens */
+@media (max-width: 480px) {
+  .card-container {
+    padding: 1rem;
+  }
+
+  .card-content {
+    gap: 0.5rem; /* Reduce spacing between elements */
+  }
+
+  .image-section img {
+    max-width: 100%;
+    border-radius: 8px; /* Optional rounded corners */
+  }
+}
+

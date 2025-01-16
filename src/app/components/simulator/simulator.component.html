@@ -1,0 +1,103 @@
+<div class="simulator-container">
+  <div class="simulator-header">
+    <h2>Simulateur de Crédit</h2>
+    <p>Calculez vos mensualités en quelques clics</p>
+  </div>
+
+  <form (ngSubmit)="updateValues()">
+    <div class="form-group">
+      <label>
+        <span>Montant du prêt</span>
+        <span class="value-display">
+          <span>{{ formatCurrency(montant) }}</span> Dhs
+        </span>
+      </label>
+      <div class="slider-container">
+        <input
+          type="range"
+          [(ngModel)]="montant"
+          name="montant"
+          min="10000"
+          max="1000000"
+          step="10000"
+          (input)="updateValue('montant', $event)"
+        />
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>
+        <span>Durée du prêt</span>
+        <span class="value-display">
+          <span>{{ duree }}</span> Ans
+        </span>
+      </label>
+      <div class="slider-container">
+        <input
+          type="range"
+          [(ngModel)]="duree"
+          name="duree"
+          min="5"
+          max="30"
+          step="1"
+          (input)="updateValue('duree', $event)"
+        />
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>
+        <span>Différé</span>
+        <span class="value-display">
+          <span>{{ differe }}</span> Mois
+        </span>
+      </label>
+      <div class="slider-container">
+        <input
+          type="range"
+          [(ngModel)]="differe"
+          name="differe"
+          min="0"
+          max="12"
+          step="1"
+          (input)="updateValue('differe', $event)"
+        />
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>
+        <span>Taux d'intérêt</span>
+        <span class="value-display">
+          <span>{{ formatPercentage(taux) }}</span>
+        </span>
+      </label>
+      <div class="slider-container">
+        <input
+          type="range"
+          [(ngModel)]="taux"
+          name="taux"
+          min="1"
+          max="10"
+          step="0.01"
+          (input)="updateValue('taux', $event)"
+        />
+      </div>
+    </div>
+
+    <div class="button-container">
+      <button type="submit" class="simulate-button">Calculer ma mensualité</button>
+    </div>
+  </form>
+
+  <div class="result" *ngIf="mensualite > 0">
+    <h3>Votre mensualité estimée</h3>
+    <div class="mensualite">
+      <span>{{ formatCurrency(mensualite) }}</span> Dhs
+    </div>
+  </div>
+
+  <p class="disclaimer">
+    Le résultat de cette simulation est non contractuel et revêt un caractère strictement informatif
+  </p>
+</div>

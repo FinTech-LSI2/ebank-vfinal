@@ -1,0 +1,112 @@
+/* General Styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: #f9f9f9;
+  color: #333;
+}
+
+/* Main Container */
+.main-container {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* Sidebar Styling */
+
+
+/* Collapsible Sidebar */
+@media (max-width: 768px) {
+  app-sidebar {
+    flex: 0 0 60px;
+    text-align: center;
+  }
+}
+
+/* Content Container */
+.content-container {
+  flex: 1;
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+}
+
+/* Form Styling */
+.credit-request-form {
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 600px;
+}
+
+.credit-request-form h1 {
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+  text-align: center;
+  color: #444;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 3px rgba(0, 123, 255, 0.5);
+}
+
+/* Submit Button */
+.btn-submit {
+  width: 100%;
+  padding: 0.75rem;
+  font-size: 1rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.btn-submit:hover {
+  background-color: #0056b3;
+}
+
+/* Responsive Layout */
+@media (max-width: 768px) {
+  .credit-request-form {
+    padding: 1rem;
+  }
+
+  .content-container {
+    padding: 1rem;
+  }
+}
+
+
+
+/*Simulateur*/
+

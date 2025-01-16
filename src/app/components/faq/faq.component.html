@@ -1,0 +1,35 @@
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+  rel="stylesheet"
+/>
+<div class="faq-section">
+  <h2>DO YOU HAVE ANY QUESTIONS?</h2>
+  <p>Please check our help platform or contact us!</p>
+
+  <div class="faq-search">
+    <input
+  type="text"
+  placeholder="Search your question..."
+  (input)="searchFAQs($event)"
+/>
+
+    <button class="search-button">
+      <i class="fas fa-search"></i>
+    </button>
+  </div>
+
+  <h3>FREQUENTLY ASKED QUESTIONS</h3>
+  <div *ngFor="let item of filteredFaqItems" class="faq-item">
+    <div class="faq-question" (click)="toggleAnswer(item)">
+      {{ item.question }}
+      <span class="faq-toggle">{{ item.isOpen ? '▲' : '▼' }}</span>
+    </div>
+    <div *ngIf="item.isOpen" class="faq-answer">
+      <p>{{ item.answer }}</p>
+    </div>
+  </div>
+
+  <div *ngIf="filteredFaqItems.length === 0" class="no-results">
+    No results found for your query.
+  </div>
+</div>

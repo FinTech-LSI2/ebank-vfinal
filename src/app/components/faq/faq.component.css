@@ -1,0 +1,130 @@
+.faq-section {
+  width: 80%;
+  margin: 0 auto;
+  text-align: center;
+  color: #667891;
+  margin-bottom: 50px;
+}
+
+.faq-section h2 {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #262d6d;
+  margin-bottom: 10px;
+}
+
+.faq-section p {
+  margin-bottom: 1rem;
+  color: #555;
+}
+
+.faq-search {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+
+}
+
+.faq-search input {
+  width: 60%;
+  padding: 10px;
+  border: 1px solid #ccc;
+
+}
+
+.faq-search .search-button {
+  padding: 10px 20px;
+  background-color: #404f8b;
+  color: white;
+  border: none;
+  cursor: pointer;
+  
+}
+
+.faq-section h3 {
+  margin: 20px 0;
+  font-size: 20px;
+  color: #222;
+}
+
+.faq-item {
+  margin-bottom: 10px;
+  border-bottom: 1px solid #ccc;
+  padding: 10px 0;
+}
+
+.faq-question {
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: bold;
+}
+
+.faq-answer {
+  margin-top: 10px;
+  text-align: left;
+  padding-left: 20px;
+  color: #666;
+}
+@media (max-width: 768px) {
+  .faq-section {
+    width: 90%; /* Reduce the width for smaller screens */
+  }
+
+  .faq-search {
+    flex-direction: column; /* Stack the search bar and button vertically */
+    align-items: stretch; /* Align items to stretch */
+  }
+
+  .faq-search input {
+    width: 100%; /* Make the input take full width */
+    margin-bottom: 10px; /* Add spacing between the input and button */
+  }
+
+  .faq-search .search-button {
+    width: 100%; /* Make the button take full width */
+    padding: 15px; /* Add padding for better touch experience */
+  }
+
+
+  .faq-section h2 {
+    font-size: 1.5rem; /* Adjust font size for headings */
+  }
+
+  .faq-section h3 {
+    font-size: 1.2rem; /* Adjust font size for subheadings */
+  }
+
+  .faq-item {
+    padding: 15px; /* Add more padding for better readability */
+  }
+
+  .faq-question {
+    font-size: 1rem; /* Reduce font size for small screens */
+  }
+
+  .faq-answer {
+    padding-left: 10px; /* Adjust padding for better layout */
+  }
+}
+
+@media (max-width: 480px) {
+  .faq-section h2 {
+    font-size: 1.2rem; /* Further reduce heading size on very small screens */
+  }
+
+  .faq-section p {
+    font-size: 0.9rem; /* Reduce paragraph font size */
+  }
+
+  .faq-item {
+    padding: 10px; /* Adjust spacing for extra small screens */
+  }
+
+  .faq-search input, .faq-search .search-button {
+    font-size: 0.9rem; /* Adjust input and button text size */
+  }
+
+}
+
