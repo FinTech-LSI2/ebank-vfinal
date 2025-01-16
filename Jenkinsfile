@@ -21,29 +21,29 @@ environment {
                     deleteDir()
 
                 // Get some code from a GitHub repository
-                git branch: 'ayman', credentialsId: 'github-token', url: 'https://github.com/FinTech-LSI2/e-bank.git'
+                git branch: 'client-service', credentialsId: 'github-token', url: 'https://github.com/FinTech-LSI2/ebank-vfinal.git'
                 
                 // Change to the 'client-service' directory and run Maven
-                dir('client-service') {
+               
                     // Run Maven on a Unix agent
                     sh "mvn -Dmaven.test.failure.ignore=true clean package"
-                }
+                
             }
         }
  stage('test') {
             steps {
-                dir('client-service') { 
+              
             sh 'mvn test'
                 }
-            }
+            
 
  }
 
         stage('checkstyle') {
             steps {
-              dir('client-service') { 
+            
             sh 'mvn checkstyle:checkstyle'
-                }
+                
             }
 
 
@@ -58,8 +58,7 @@ stage('CODE ANALYSIS with SONARQUBE') {
 
           steps {
 
-            dir('client-service') {  
-
+           
 
             withSonarQubeEnv('sonar-server') {
               sh '''${scannerHome}/bin/sonar-scanner \
@@ -74,7 +73,7 @@ stage('CODE ANALYSIS with SONARQUBE') {
             }
 
           
-          }
+          
           }
         }
 
@@ -82,7 +81,7 @@ stage('CODE ANALYSIS with SONARQUBE') {
 
 
        steps {
-     dir('client-service') {  
+ 
     
     nexusArtifactUploader(
         nexusVersion: 'nexus3',
@@ -99,7 +98,7 @@ stage('CODE ANALYSIS with SONARQUBE') {
              type: 'jar']
         ]
      )
-     }
+     
 
 
 
