@@ -13,6 +13,25 @@ pipeline {
                 git branch: 'data', credentialsId: 'github-token', url: 'https://github.com/FinTech-LSI2/e-bank.git'
             }
         }
+        stage('CODE ANALYSIS with SONARQUBE') {
+    environment {
+        scannerHome = tool 'sonar'
+    }
+
+    steps {
+       
+            withSonarQubeEnv('sonar-server') {
+                sh '''${scannerHome}/bin/sonar-scanner \
+                     -Dsonar.projectKey=ebank-python \
+                     -Dsonar.projectName=python-microservice \
+                     -Dsonar.projectVersion=1.0 \
+                     -Dsonar.sources=./ 
+                     '''
+            }
+        
+    }
+}
+
 
         stage('Build App Image') {
             steps {
