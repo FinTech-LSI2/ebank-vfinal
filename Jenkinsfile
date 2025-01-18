@@ -51,6 +51,34 @@ pipeline {
                 }
             }
         }
+  
+  
+   stage('Update Kubernetes Manifest') {
+            steps {
+                script {
+                    deleteDir()
+                    git branch: 'main', credentialsId: 'github-token', url: 'https://github.com/FinTech-LSI2/ARGOCD_EBANK.git'
+
+                    sh """
+                    sed -i 's|image:.*|image: "${appRegistry}:${BUILD_NUMBER}"|' ./frontend-deploy.yaml
+                    """
+
+                    sh """
+                    git config user.name 'AymanGharib'
+                    git add frontend-deploy.yaml
+                    git commit -m "Updated image to ${appRegistry}:${BUILD_NUMBER}"
+                    git push https://AymanGharib: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@github.com/FinTech-LSI2/ARGOCD_EBANK.git main
+                    """
+                }
+            }
+        }
+
+
+  
+  
+  
+  
+  
     }
 
     post {
