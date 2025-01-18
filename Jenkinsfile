@@ -148,6 +148,40 @@ stage('Build App Image') {
      }
 
 
+stage('Update Kubernetes Manifest') {
+    steps {
+        script {
+            // Clone the manifest repository
+            deleteDir()
+            git branch: 'main', credentialsId: 'github-token', url: 'https://github.com/FinTech-LSI2/ARGOCD_EBANK.git'
+
+            // Update the manifest file with the new image
+            sh """
+            sed -i 's|image:.*|image: ${appRegistry}:${BUILD_NUMBER}|' ./client-deploy.yaml
+            """
+
+            // Commit and push changes
+            sh """
+            git config user.name 'AymanGharib'
+            git config user.password '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'
+           
+            git add client-deploy.yaml
+            git commit -m "Updated image to ${appRegistry}:${BUILD_NUMBER}"
+            git push origin main
+            """
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
 
 
 
