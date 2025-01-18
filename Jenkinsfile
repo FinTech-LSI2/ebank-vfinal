@@ -77,6 +77,69 @@ stage('CODE ANALYSIS with SONARQUBE') {
           }
         }
 
+
+
+
+
+
+  stage('upload artifact ') {
+
+
+       steps {
+ 
+    
+    nexusArtifactUploader(
+        nexusVersion: 'nexus3',
+        protocol: 'http',
+        nexusUrl: '54.227.60.222:8081/',
+        groupId: 'qa',
+        version: "${env.BUILD_ID}",
+        repository: 'ebank',
+        credentialsId: 'nexus-login',
+        artifacts: [
+            [artifactId: 'client-service',
+             classifier: '',
+             file: 'target/client-service-0.0.1-SNAPSHOT.jar',
+             type: 'jar']
+        ]
+     )
+     
+
+
+
+
+
+
+
+
+
+       }
+
+
+
+
+
+
+
+
+
+
+
+
+
+      }
+
+
+
+
+
+
+
+
+
+
+
+
     
 stage('Build App Image') {
        steps {
