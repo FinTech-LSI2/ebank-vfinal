@@ -111,7 +111,7 @@ stage('Update Kubernetes Manifest') {
 
             // Update the manifest file with the new image
             sh """
-            sed -i 's|image:.*|image: ${appRegistry}:${BUILD_NUMBER}|' ./client-deploy.yaml
+            sed -i 's|image:.*|image: "${appRegistry}:${BUILD_NUMBER}"|' ./client-deploy.yaml
             """
 
             // Commit and push changes
