@@ -117,11 +117,11 @@ stage('Update Kubernetes Manifest') {
             // Commit and push changes
             sh """
             git config user.name 'AymanGharib'
-            git config user.password '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'
+           
            
             git add client-deploy.yaml
             git commit -m "Updated image to ${appRegistry}:${BUILD_NUMBER}"
-            git push origin main
+             git push https://AymanGharib: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@github.com/FinTech-LSI2/ARGOCD_EBANK.git main
             """
         }
     }
