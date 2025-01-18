@@ -8,7 +8,7 @@ pipeline {
     }
 environment {
         registryCredential = 'ecr:us-east-1:awscreds'
-        appRegistry = "390403864598.dkr.ecr.us-east-1.amazonaws.com/client-service"
+        appRegistry = "390403864598.dkr.ecr.us-east-1.amazonaws.com/finance-service"
         vprofileRegistry = "https://390403864598.dkr.ecr.us-east-1.amazonaws.com"
     }
 
@@ -21,29 +21,29 @@ environment {
                     deleteDir()
 
                 // Get some code from a GitHub repository
-                git branch: 'ayman', credentialsId: 'github-token', url: 'https://github.com/FinTech-LSI2/e-bank.git'
+                git branch: 'finance-service', credentialsId: 'github-token', url: 'https://github.com/FinTech-LSI2/ebank-vfinal.git'
                 
                 // Change to the 'client-service' directory and run Maven
-                dir('finance-service') {
+              
                     // Run Maven on a Unix agent
                     sh "mvn -Dmaven.test.failure.ignore=true clean package"
-                }
+                
             }
         }
  stage('test') {
             steps {
-                dir('finance-service') { 
+               
             sh 'mvn test'
-                }
+                
             }
 
  }
 
         stage('checkstyle') {
             steps {
-              dir('finance-service') { 
+              
             sh 'mvn checkstyle:checkstyle'
-                }
+                
             }
 
 
@@ -58,7 +58,6 @@ stage('CODE ANALYSIS with SONARQUBE') {
 
           steps {
 
-            dir('finance-service') {  
 
 
             withSonarQubeEnv('sonar-server') {
@@ -74,7 +73,7 @@ stage('CODE ANALYSIS with SONARQUBE') {
             }
 
           
-          }
+          
           }
         }
 
@@ -82,7 +81,7 @@ stage('CODE ANALYSIS with SONARQUBE') {
 
 
        steps {
-     dir('finance-service') {  
+     
     
     nexusArtifactUploader(
         nexusVersion: 'nexus3',
@@ -99,7 +98,7 @@ stage('CODE ANALYSIS with SONARQUBE') {
              type: 'jar']
         ]
      )
-     }
+     
 
 
 
@@ -147,6 +146,53 @@ stage('Build App Image') {
             }
           }
      }
+
+
+
+   stage('Upload App Image') {
+          steps{
+            script {
+              docker.withRegistry( vprofileRegistry, registryCredential ) {
+                dockerImage.push("$BUILD_NUMBER")
+                dockerImage.push('latest')
+              }
+            }
+          }
+     }
+
+
+stage('Update Kubernetes Manifest') {
+    steps {
+        script {
+            // Clone the manifest repository
+            deleteDir()
+            git branch: 'main', credentialsId: 'github-token', url: 'https://github.com/FinTech-LSI2/ARGOCD_EBANK.git'
+
+            // Update the manifest file with the new image
+            sh """
+            sed -i 's|image:.*|image: "${appRegistry}:${BUILD_NUMBER}"|' ./finance-deploy.yaml
+            """
+
+            // Commit and push changes
+            sh """
+            git config user.name 'AymanGharib'
+           
+           
+            git add finance-deploy.yaml
+            git commit -m "Updated image to ${appRegistry}:${BUILD_NUMBER}"
+             git push https://AymanGharib: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@github.com/FinTech-LSI2/ARGOCD_EBANK.git main
+            """
+        }
+    }
+}
+
+
+
+
+
+
+
+
 
 
 
