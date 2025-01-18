@@ -21,7 +21,7 @@ environment {
                     deleteDir()
 
                 // Get some code from a GitHub repository
-                git branch: 'transactions-service', credentialsId: 'github-token', url: 'https://github.com/FinTech-LSI2/ebank-vfinal.git'
+                git branch: 'transactions-serivce', credentialsId: 'github-token', url: 'https://github.com/FinTech-LSI2/ebank-vfinal.git'
                 
                 // Change to the 'client-service' directory and run Maven
                
