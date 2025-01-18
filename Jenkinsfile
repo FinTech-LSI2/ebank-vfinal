@@ -8,7 +8,7 @@ pipeline {
     }
 environment {
         registryCredential = 'ecr:us-east-1:awscreds'
-        appRegistry = "390403864598.dkr.ecr.us-east-1.amazonaws.com/client-service"
+        appRegistry = "390403864598.dkr.ecr.us-east-1.amazonaws.com/transactions-service"
         vprofileRegistry = "https://390403864598.dkr.ecr.us-east-1.amazonaws.com"
     }
 
@@ -21,29 +21,29 @@ environment {
                     deleteDir()
 
                 // Get some code from a GitHub repository
-                git branch: 'ayman', credentialsId: 'github-token', url: 'https://github.com/FinTech-LSI2/e-bank.git'
+                git branch: 'transactions-service', credentialsId: 'github-token', url: 'https://github.com/FinTech-LSI2/ebank-vfinal.git'
                 
                 // Change to the 'client-service' directory and run Maven
-                dir('transaction-service') {
+               
                     // Run Maven on a Unix agent
                     sh "mvn -Dmaven.test.failure.ignore=true clean package"
-                }
+                
             }
         }
  stage('test') {
             steps {
-                dir('transaction-service') { 
+                
             sh 'mvn test'
-                }
+                
             }
 
  }
 
         stage('checkstyle') {
             steps {
-              dir('transaction-service') { 
+              
             sh 'mvn checkstyle:checkstyle'
-                }
+                
             }
 
 
@@ -58,7 +58,7 @@ stage('CODE ANALYSIS with SONARQUBE') {
 
           steps {
 
-            dir('transaction-service') {  
+          
 
 
             withSonarQubeEnv('sonar-server') {
@@ -74,7 +74,7 @@ stage('CODE ANALYSIS with SONARQUBE') {
             }
 
           
-          }
+          
           }
         }
 
@@ -82,12 +82,12 @@ stage('CODE ANALYSIS with SONARQUBE') {
 
 
        steps {
-     dir('transaction-service') {  
+    
     
     nexusArtifactUploader(
         nexusVersion: 'nexus3',
         protocol: 'http',
-        nexusUrl: '54.225.12.160:8081/',
+        nexusUrl: '54.227.60.222:8081/',
         groupId: 'qa',
         version: "${env.BUILD_ID}",
         repository: 'ebank',
@@ -99,7 +99,7 @@ stage('CODE ANALYSIS with SONARQUBE') {
              type: 'jar']
         ]
      )
-     }
+     
 
 
 
@@ -129,7 +129,7 @@ stage('Build App Image') {
        steps {
        
          script {
-                dockerImage = docker.build( appRegistry + ":$BUILD_NUMBER", "client-service/")
+                dockerImage = docker.build( appRegistry + ":$BUILD_NUMBER", "./")
              }
 
      }
@@ -148,6 +148,25 @@ stage('Build App Image') {
           }
      }
 
+        stage('Update Kubernetes Manifest') {
+            steps {
+                script {
+                    deleteDir()
+                    git branch: 'main', credentialsId: 'github-token', url: 'https://github.com/FinTech-LSI2/ARGOCD_EBANK.git'
+
+                    sh """
+                    sed -i 's|image:.*|image: "${appRegistry}:${BUILD_NUMBER}"|' ./transactions-deploy.yaml
+                    """
+
+                    sh """
+                    git config user.name 'AymanGharib'
+                    git add transactions-deploy.yaml
+                    git commit -m "Updated image to ${appRegistry}:${BUILD_NUMBER}"
+                    git push https://AymanGharib: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@github.com/FinTech-LSI2/ARGOCD_EBANK.git main
+                    """
+                }
+            }
+        }
 
 
 
