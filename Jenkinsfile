@@ -82,7 +82,7 @@ stage('CODE ANALYSIS with SONARQUBE') {
 
 
 
-  stage('upload artifact ') {
+ /* stage('upload artifact ') {
 
 
        steps {
@@ -139,7 +139,7 @@ stage('CODE ANALYSIS with SONARQUBE') {
 
 
 
-
+*/
     
 stage('Build App Image') {
        steps {

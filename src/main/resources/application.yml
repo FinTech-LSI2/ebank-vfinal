@@ -10,7 +10,7 @@ spring:
   config:
     import: optional:configserver:http://config-server:8888
   datasource:
-    url: jdbc:mysql://client-service.cfuskkuqotmo.us-east-1.rds.amazonaws.com:3306/client-service
+    url: jdbc:mysql://ebank.cfuskkuqotmo.us-east-1.rds.amazonaws.com:3306/client-service
     username: admin
     password: 123ayman
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -22,5 +22,14 @@ spring:
         dialect: org.hibernate.dialect.MySQL8Dialect
   sql:
     init:
+
+
+
+
+
+
+
+      clear
+      
       mode: always
 
