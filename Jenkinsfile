@@ -91,7 +91,7 @@ stage('CODE ANALYSIS with SONARQUBE') {
     nexusArtifactUploader(
         nexusVersion: 'nexus3',
         protocol: 'http',
-        nexusUrl: '54.227.60.222:8081/',
+        nexusUrl: '54.91.28.84:8081/',
         groupId: 'qa',
         version: "${env.BUILD_ID}",
         repository: 'ebank',
