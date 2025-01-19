@@ -5,9 +5,9 @@ spring:
   application:
     name: transaction-service
   datasource:
-    url: jdbc:mysql://transactions-db:3306/transactions-service
-    username: root
-    password: root
+    url: jdbc:mysql://ebank.cfuskkuqotmo.us-east-1.rds.amazonaws.com/transactions-service
+    username: admin
+    password: 123ayman
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
