@@ -1,0 +1,1 @@
+premieremnt on doit creer une k8s cluster localement 

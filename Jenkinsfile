@@ -153,6 +153,27 @@ stage('Build App Image') {
     }
 
 
+
+
+stage('scan iamge ') {
+ steps{ 
+
+sh 'docker pull aquasec/trivy:latest'
+sh 'docker run --rm -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy:latest image --scanners vuln ayman909/client-service'
+
+
+
+
+
+
+ }
+}
+
+
+
+
+
+
     stage('Upload App Image') {
           steps{
             script {
